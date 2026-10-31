@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Комната — хакатон</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<main>
+
+<!-- ТИТУЛЬНЫЙ ЭКРАН -->
+<section id="s-title">
+  <div style="text-align: center;">
+  <h1>Давай сыграем, семпай (,,> ᴗ <,,)</h1>
+    <div class="mut">Создайте комнату или подключитесь по номеру</div>
+  </div>
+
+  <div class="title-grid">
+    <div class="card">
+      <h3>Создать комнату</h3>
+      <div class="row"><input id="hostNick" placeholder="Ваш ник" maxlength="16"></div>
+      <div id="codeBox" class="hidden">
+        <div class="mut" style="margin-top:12px">Номер комнаты:</div>
+        <div class="code" id="newCode"></div>
+      </div>
+      <div class="row" style="margin-top:12px">
+        <button id="btnCreate">Создать комнату</button>
+        <button id="btnEnterOwn" class="sec hidden">Войти в комнату</button>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Подключиться</h3>
+      <div class="row" style="flex-direction:column;align-items:stretch">
+        <input id="joinCode" placeholder="Номер комнаты" inputmode="numeric" maxlength="6">
+        <input id="joinNick" placeholder="Ваш ник (идентификатор игрока)" maxlength="16">
+        <button id="btnJoin">Подключиться</button>
+        <div id="joinErr" class="mut"></div>
+      </div>
+    </div>
+  </div>
+  <button id="adm" class="sec">⚙ Админ-панель</button>
+  <div id="admPanel" class="card hidden" style="margin-top:16px">
+    <h3>Админ-панель</h3>
+    <div class="mut" style="margin-bottom:10px">Вход в тестовую комнату без номера.</div>
+    <button id="btnAdmin">Войти в админ-комнату</button>
+  </div>
+</section>
+
+<!-- ЭКРАН КОМНАТЫ -->
+<section id="s-room" class="hidden">
+  <div class="top">
+    <div><h2 style="margin:0">Комната <span id="rCode" style="color:var(--ac)"></span></h2>
+      <div class="mut" id="rInfo"></div></div>
+    <div class="row">
+      <button id="btnAddBot" class="sec hidden">+ тестовый игрок</button>
+      <button id="btnStart" disabled>Начать</button>
+      <button id="btnLeave" class="sec">Выйти</button>
+    </div>
+  </div>
+  <div id="hint" class="mut"></div>
+
+  <div id="gamePanel" class="card hidden" style="margin-top:12px">
+    <div class="row" style="justify-content:space-between">
+      <div><span class="mut">Осталось</span><div class="timer" id="timer">3:00</div></div>
+      <div style="flex:1;min-width:220px">
+        <div class="mut">Лидирует: <b id="leader" style="color:var(--tx)">—</b></div>
+        <div class="bar" id="bar"></div>
+        <div class="legend" id="legend"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="result" class="card winner hidden" style="margin-top:12px">
+    <div class="mut">Победитель</div>
+    <b id="winNick"></b>
+    <div class="mut" id="winScore"></div>
+  </div>
+
+  <div id="players" class="players"></div>
+  <div class="row" style="justify-content:center;margin-top:18px">
+    <button id="btnPlay" class="hidden">▶ Играть</button>
+  </div>
+</section>
+</main>
+
+<script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/room.js"></script>
+<script src="js/round.js"></script>
+<script src="js/title.js"></script>
+</body>
+</html>
