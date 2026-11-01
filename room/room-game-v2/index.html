@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Игра эмоций</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800;900&family=Comfortaa:wght@700&display=swap" rel="stylesheet">
+<!-- Стили разбиты по экранам -->
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/transitions.css">
+<link rel="stylesheet" href="css/menu.css">
+<link rel="stylesheet" href="css/play.css">
+<link rel="stylesheet" href="css/info.css">
+<link rel="stylesheet" href="css/room.css">
+</head>
+<body>
+<main>
+
+<!-- Экраны: у каждого класс .screen. Элементы с классом .reveal плавно появляются/исчезают при переходах -->
+
+<!-- ============ ГЛАВНОЕ МЕНЮ ============ -->
+<section id="s-menu" class="screen">
+  <div class="menu">
+
+    <!-- Виджет: время -->
+    <aside class="widgets">
+      <div class="widget w-clock reveal">
+        <div class="w-sm">Сейчас</div>
+        <div class="w-big" id="wClock">--:--</div>
+        <div class="w-sm" id="wDate"></div>
+      </div>
+    </aside>
+
+    <div class="menu-center">
+      <h1 class="logo reveal"><span id="sempaiTrigger" role="button" tabindex="0" aria-label="Показать сюрприз">(,,&gt; ᴗ &lt;,,)</span></h1>
+      <nav class="menu-btns">
+        <button class="mbtn reveal" data-go="s-play">Войти в игру</button>
+        <button class="mbtn alt reveal" data-go="s-info">Информация</button>
+        <!-- TODO: ссылка на GitHub задаётся в js/config.js → CFG.GITHUB_URL -->
+        <a class="mbtn alt reveal" id="btnGithub" href="#" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </nav>
+      <button id="btnTheme" class="sec theme-toggle reveal" type="button">🌙 Тёмная тема</button>
+      <div class="mut tiny" id="ghHint"></div>
+    </div>
+
+    <!-- Виджет открывает таблицу лидеров -->
+    <aside class="widgets">
+      <button class="widget w-winner reveal" id="openLeaderboard" type="button">
+        <div class="w-sm">Лучший игрок за всё время</div>
+        <div class="w-big" id="wWinNick">—</div>
+        <div class="w-sm" id="wWinScore"></div>
+        <div class="w-sm leaderboard-link">Открыть таблицу лидеров →</div>
+      </button>
+    </aside>
+
+  </div>
+</section>
+
+<!-- ============ ВХОД В ИГРУ ============ -->
+<section id="s-play" class="screen hidden">
+  <button class="back reveal" data-go="s-menu">← В меню</button>
+  <div class="reveal" style="text-align:center">
+    <h2 class="page-title">Войти в комнату</h2>
+    <div class="mut">Введите код комнаты и своё имя</div>
+  </div>
+
+  <div class="title-grid single">
+    <div class="card reveal">
+      <div class="row" style="flex-direction:column;align-items:stretch">
+        <input id="joinCode" placeholder="Код комнаты" inputmode="numeric" maxlength="6" autocomplete="one-time-code">
+        <input id="joinNick" placeholder="Ваше имя" maxlength="16" autocomplete="nickname">
+        <button id="btnJoin">Войти</button>
+        <div class="mut tiny">Можно играть одному или с любым количеством игроков.</div>
+        <div id="joinErr" class="mut" aria-live="polite"></div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ============ ТАБЛИЦА ЛИДЕРОВ ============ -->
+<section id="s-leaderboard" class="screen hidden">
+  <button class="back reveal" data-go="s-menu">← В меню</button>
+  <div class="reveal" style="text-align:center">
+    <h2 class="page-title">Таблица лидеров</h2>
+    <div class="mut">Рейтинг игроков по сумме очков за всё время</div>
+  </div>
+  <div class="card leaderboard-card reveal">
+    <table class="leaderboard-table">
+      <thead><tr><th>Место</th><th>Игрок</th><th>Очки за всё время</th></tr></thead>
+      <tbody id="leaderboardBody"><tr><td colspan="3" class="mut">Загрузка…</td></tr></tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============ ИНФОРМАЦИЯ: 2 автора ============ -->
+<section id="s-info" class="screen hidden">
+  <button class="back reveal" data-go="s-menu">← В меню</button>
+  <div class="reveal" style="text-align:center">
+    <h2 class="page-title">Как играть</h2>
+    <div class="mut">Коротко: что делать в комнате и во время раунда</div>
+  </div>
+
+  <ol class="how-to-play">
+    <li class="card reveal">
+      <b>Войди в комнату</b>
+      <span>Введи шестизначный код и своё имя. Можно играть одному или позвать друзей — всего до четырёх игроков.</span>
+    </li>
+    <li class="card reveal">
+      <b>Подготовься к раунду</b>
+      <span>Разреши доступ к камере, затем нажми «Начать». Если играешь с друзьями, поделись с ними кодом комнаты.</span>
+    </li>
+    <li class="card reveal">
+      <b>Показывай эмоции</b>
+      <span>Смотри на название эмоции на экране и изобрази её лицом перед камерой. Игра будет оценивать тебя и показывать баллы и лидера.</span>
+    </li>
+    <li class="card reveal">
+      <b>Слушай комментарии и смотри результат</b>
+      <span>Твои фразы видны только тебе. Включи озвучку кнопкой «Озвучка»; по окончании раунда появится победитель.</span>
+    </li>
+  </ol>
+
+  <div class="reveal" style="text-align:center;margin-top:32px">
+    <h2 class="page-title">Об авторах</h2>
+    <div class="mut">Те, кто сделал эту игру</div>
+  </div>
+
+  <div class="authors">
+
+    <!-- АВТОР 1. Аватарка — картинка assets/avatar1.svg (можно заменить на свой .png/.jpg: поменяйте путь в src) -->
+    <article class="card author reveal">
+      <div class="avatar"><img src="assets/Avtor1.jpg" alt="Аватар автора 1"></div>
+      <h3 class="a-name">@miiim64</h3>
+      <p class="a-text">Технический разработчик, отвечающий за серверную часть, нейросети и передачу данных.</p>
+    </article>
+
+    <!-- АВТОР 2 -->
+    <article class="card author reveal">
+      <div class="avatar"><img src="assets/Avtor2.jpg" alt="Аватар автора 2"></div>
+      <h3 class="a-name">@Asaiknight</h3>
+      <p class="a-text">Разработчик, отвечающий за интерфейс, звук и пасхалки.</p>
+    </article>
+
+  </div>
+</section>
+
+<!-- ============ ЭКРАН КОМНАТЫ / ИГРЫ ============ -->
+<section id="s-room" class="screen hidden">
+  <div class="top">
+    <div><h2 style="margin:0">Комната <span id="rCode" style="color:var(--ac)"></span></h2>
+      <div class="mut" id="rInfo"></div></div>
+    <div class="row">
+      <button id="btnStart" disabled>Начать</button>
+      <button id="btnLeave" class="sec">Выйти</button>
+    </div>
+  </div>
+
+  <!-- Код комнаты: виден в меню комнаты до начала раунда -->
+  <div id="codeCard" class="card code-card">
+    <div>
+      <div class="w-sm">Код комнаты</div>
+      <div class="room-code" id="lobbyCode"></div>
+    </div>
+    <div class="code-card-r">
+      <button id="btnCopy" class="sec" type="button">Скопировать код</button>
+      <div class="waiting"><span id="waitText">Ждём игроков</span><span class="dots" id="waitDots"><i></i><i></i><i></i></span></div>
+    </div>
+  </div>
+  <div id="hint" class="mut"></div>
+  <div id="adminTools" class="card hidden" style="margin-top:12px">
+    <h3>Админ-панель</h3>
+    <div class="mut" style="margin-bottom:10px">Инструменты доступны только в отдельной админской комнате.</div>
+    <button id="btnAddBot" class="sec">+ Добавить тестового игрока</button>
+    <span id="adminToolsHint" class="mut"></span>
+  </div>
+
+  <div id="gamePanel" class="card hidden" style="margin-top:12px">
+    <div class="row" style="justify-content:space-between">
+      <div><span class="mut">Осталось</span><div class="timer" id="timer">3:00</div></div>
+      <div style="flex:1;min-width:220px">
+        <div class="mut">Лидирует: <b id="leader" style="color:var(--tx)">—</b></div>
+        <div class="bar" id="bar"></div>
+        <div class="legend" id="legend"></div>
+      </div>
+    </div>
+
+    <!-- Мои субтитры (в меню раунда). Видны и озвучиваются только у самого игрока. -->
+    <div class="my-sub">
+      <div class="my-sub-head">
+        <div class="my-sub-h">Мои фразы <small>— видите и слышите только вы</small></div>
+        <div class="voice-row">
+            <button id="btnVoice" class="sec" type="button" aria-pressed="true" aria-label="Выключить озвучивание фраз">🔊 Озвучка включена</button>
+            <span id="voiceStatus" class="voice-status" aria-live="polite"></span>
+        </div>
+      </div>
+      <div class="my-sub-t" id="mySub"></div>
+    </div>
+  </div>
+
+  <div id="result" class="card winner hidden" style="margin-top:12px">
+    <div class="mut">Победитель</div>
+    <b id="winNick"></b>
+    <div class="mut" id="winScore"></div>
+  </div>
+
+  <div id="players" class="players"></div>
+  <div class="row" style="justify-content:center;margin-top:18px">
+    <button id="btnPlay" class="hidden">▶ Играть</button>
+  </div>
+</section>
+</main>
+
+<!-- Секретная картинка по нажатию на значок главного экрана -->
+<div id="sempaiPop" class="sempai-pop hidden" aria-hidden="true"><img src="assets/sempai-pop.png" alt=""></div>
+
+<!-- Переключатель звуков интерфейса -->
+<button id="btnSound" class="sec sound-toggle" type="button">Звуки: вкл</button>
+
+<!-- Данные и общее -->
+<script src="js/config.js?v=unlimited-players"></script>
+<script src="js/api.js?v=unlimited-players"></script>
+<script src="js/utils.js?v=unlimited-players"></script>
+<script src="js/sfx.js?v=unlimited-players"></script>
+<script src="js/tts.js?v=unlimited-players"></script>
+<script src="js/ws.js?v=unlimited-players"></script>
+<!-- Меню (по файлам) -->
+<script src="js/menu/nav.js?v=unlimited-players"></script>
+<script src="js/menu/clock.js?v=unlimited-players"></script>
+<script src="js/menu/winner.js?v=unlimited-players"></script>
+<script src="js/menu/leaderboard.js?v=unlimited-players"></script>
+<script src="js/menu/theme.js?v=unlimited-players"></script>
+<script src="js/menu/sempai.js?v=unlimited-players"></script>
+<script src="js/menu/github.js?v=unlimited-players"></script>
+<!-- Комната, раунд, вход в игру -->
+<script src="js/room.js?v=unlimited-players"></script>
+<script src="js/round.js?v=unlimited-players"></script>
+<script src="js/title.js?v=unlimited-players"></script>
+</body>
+</html>

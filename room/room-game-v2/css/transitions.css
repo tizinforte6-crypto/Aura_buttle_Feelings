@@ -1,0 +1,16 @@
+/* ============ ПЛАВНЫЕ ПЕРЕХОДЫ МЕЖДУ ЭКРАНАМИ ============
+   Логика в js/menu/nav.js:
+   1) у уходящего экрана ставится .leaving — он и его .reveal-элементы тускнеют и уезжают вверх;
+   2) затем экран скрывается, у нового ставится .entering — .reveal-элементы появляются по очереди (--i). */
+.screen{transition:opacity .32s ease, transform .32s ease}
+.screen.leaving{opacity:0;transform:translateY(-10px);pointer-events:none}
+.screen.leaving .reveal{opacity:0;transform:translateY(-10px);transition:opacity .28s ease, transform .28s ease}
+
+.screen.entering{animation:screenIn .45s ease backwards}
+.screen.entering .reveal{animation:revealIn .55s cubic-bezier(.2,.7,.2,1) backwards;animation-delay:calc(var(--i,0) * 80ms + 100ms)}
+@keyframes screenIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes revealIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+@media (prefers-reduced-motion:reduce){
+  .screen,.screen .reveal{transition:none!important;animation:none!important}
+}

@@ -1,0 +1,30 @@
+/* ============ ЭКРАН «ИНФОРМАЦИЯ» ============ */
+.how-to-play{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;
+  max-width:860px;margin:24px auto 0;padding:0;list-style:none;counter-reset:play-step
+}
+.how-to-play li{
+  display:flex;flex-direction:column;gap:6px;min-height:120px;
+  counter-increment:play-step
+}
+.how-to-play li::before{
+  content:counter(play-step);display:grid;place-items:center;width:30px;height:30px;
+  border-radius:50%;background:var(--vid);color:var(--ac-d);font-weight:900
+}
+.how-to-play b{color:var(--ac-d);font-size:17px}
+.how-to-play span{color:var(--mut)}
+.authors{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;margin:24px auto 0;max-width:760px}
+.author{text-align:center;padding:28px 22px}
+.avatar{
+  width:140px;height:140px;margin:0 auto 14px;border-radius:50%;overflow:hidden;
+  border:4px solid #fff;box-shadow:0 0 0 3px var(--ac2), var(--shadow);background:var(--vid);
+}
+.avatar img{display:block;width:100%;height:100%;object-fit:cover}
+.a-name{font-size:21px;color:var(--ac-d)}
+.a-text{margin:8px 0 0;min-height:72px}
+@media(max-width:600px){
+  .how-to-play{grid-template-columns:1fr;gap:10px;margin-top:18px}
+  .how-to-play li{min-height:0;padding:15px}
+  .authors{grid-template-columns:minmax(0,1fr);gap:12px;margin-top:18px}
+  .author{padding:22px 16px}
+}

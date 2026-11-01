@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d9d2ff"/><stop offset="1" stop-color="#cfe6ff"/></linearGradient>
+  </defs>
+  <rect width="256" height="256" fill="url(#bg)"/>
+  <!-- плечи -->
+  <path d="M30 256 C34 206 78 186 128 186 C178 186 222 206 226 256 Z" fill="#a597f4"/>
+  <path d="M104 186 L128 214 L152 186 Z" fill="#efd5c2"/>
+  <!-- шея и лицо -->
+  <rect x="112" y="156" width="32" height="38" rx="12" fill="#efd5c2"/>
+  <ellipse cx="128" cy="116" rx="46" ry="54" fill="#f6dfce"/>
+  <!-- короткая стрижка -->
+  <path d="M78 116 C70 62 104 36 134 40 C170 44 190 74 178 116 C172 92 160 80 142 78 C118 76 96 84 78 116 Z" fill="#3d5a9e"/>
+  <!-- очки -->
+  <g fill="none" stroke="#38456a" stroke-width="3.5">
+    <rect x="94" y="110" width="28" height="22" rx="8"/>
+    <rect x="134" y="110" width="28" height="22" rx="8"/>
+    <path d="M122 120 L134 120"/>
+  </g>
+  <circle cx="108" cy="121" r="4.5" fill="#38456a"/>
+  <circle cx="148" cy="121" r="4.5" fill="#38456a"/>
+  <path d="M116 148 Q128 157 140 148" fill="none" stroke="#38456a" stroke-width="3.5" stroke-linecap="round"/>
+</svg>

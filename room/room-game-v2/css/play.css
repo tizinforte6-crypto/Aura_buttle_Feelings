@@ -1,0 +1,10 @@
+/* ============ ЭКРАН «ВХОД В ИГРУ» ============ */
+.title-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:20px}
+.title-grid.single{grid-template-columns:minmax(0,460px);justify-content:center}
+.adm-wrap{display:flex;justify-content:flex-end;margin-top:20px}
+#adm{font-size:13px;padding:8px 14px}
+
+.admin-access{display:flex;align-items:center;gap:8px;max-width:360px;margin:24px auto 0;flex-wrap:wrap}
+.admin-access input{flex:1;min-width:130px}
+.admin-access button{white-space:nowrap}
+.admin-access .tiny{width:100%;text-align:center}

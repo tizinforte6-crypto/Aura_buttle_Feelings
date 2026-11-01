@@ -1,0 +1,69 @@
+/* ============ ГЛАВНОЕ МЕНЮ ============ */
+.menu{display:grid;grid-template-columns:220px 1fr 220px;gap:24px;align-items:center;min-height:calc(100vh - 60px);padding:24px 0}
+.menu-center{display:flex;flex-direction:column;align-items:center;text-align:center}
+.logo{font-size:clamp(32px,5.5vw,54px);line-height:1.15;margin:0 0 28px;letter-spacing:-.055em}
+.logo span{color:var(--ac)}
+.logo small{display:block;font-size:.45em;color:var(--mut);font-weight:700;margin-top:8px}
+.menu-btns{display:flex;flex-direction:column;gap:14px;width:min(320px,100%)}
+.mbtn{font-size:18px;padding:16px 24px;text-align:center}
+.mbtn.alt{background:#fff;color:var(--ac-d);border:2px solid var(--bd);box-shadow:none}
+.mbtn.alt:hover{border-color:var(--ac2)}
+
+/* виджеты */
+.widgets{display:flex;flex-direction:column;gap:16px}
+.widget{background:color-mix(in srgb,var(--card) 92%,transparent);border:1px solid var(--bd);border-radius:22px;padding:18px;box-shadow:var(--shadow);backdrop-filter:blur(12px)}
+.w-big{font-family:"Comfortaa",sans-serif;font-weight:700;font-size:24px;color:var(--ac-d);word-break:break-word}
+.w-sm{font-size:12px;color:var(--mut);font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+.w-clock .w-big{font-size:32px;margin:4px 0 2px}
+
+@media (max-width:860px){
+  .menu{grid-template-columns:1fr;min-height:0}
+  .menu-center{order:-1}
+  .widgets{flex-direction:row;flex-wrap:wrap;justify-content:center}
+  .widget{flex:1;min-width:160px}
+}
+
+.w-winner{font:inherit;text-align:left;width:100%;cursor:pointer;color:var(--tx)}
+.w-winner:hover{transform:translateY(-2px);border-color:var(--ac2)}
+.leaderboard-link{margin-top:10px;color:var(--ac-d)}
+.theme-toggle{margin-top:18px;min-width:190px}
+:root[data-theme="dark"] .w-winner{color:var(--tx)}
+
+/* Одинаковые размеры виджетов главного меню */
+.menu>.widgets .widget{width:100%;min-height:158px;height:158px;display:flex;flex-direction:column;justify-content:center}
+.menu>.widgets{width:220px}
+.w-winner{min-height:158px}
+@media(max-width:860px){
+  .menu>.widgets{width:100%}
+  .menu>.widgets .widget{height:158px;min-height:158px;flex:1 1 220px}
+}
+/* Небольшой эффект появления и исчезновения секретной картинки */
+.sempai-pop{
+  position:fixed;z-index:1000;width:min(230px,42vw);pointer-events:none;
+  opacity:0;transform:scale(.82) rotate(-5deg);
+  filter:brightness(1);
+  animation:sempaiPopLife 3.8s ease forwards;
+}
+.sempai-pop img{display:block;width:100%;height:auto;border-radius:14px;box-shadow:0 12px 38px rgba(0,0,0,.32)}
+@keyframes sempaiPopLife{
+  0%{opacity:0;transform:scale(.82) rotate(-5deg);filter:brightness(.7)}
+  12%{opacity:1;transform:scale(1) rotate(0);filter:brightness(1)}
+  76%{opacity:1;transform:scale(1) rotate(0);filter:brightness(1)}
+  100%{opacity:0;transform:scale(.9) rotate(4deg);filter:brightness(.35)}
+}
+.logo span#sempaiTrigger{cursor:pointer;display:inline-block;transition:transform .18s,filter .18s}
+.logo span#sempaiTrigger:hover{transform:scale(1.06);filter:brightness(1.15)}
+.logo span#sempaiTrigger:focus-visible{outline:2px solid var(--ac);outline-offset:5px;border-radius:8px}
+
+@media(max-width:600px){
+  .menu{gap:16px;padding:12px 0}
+  .menu-center{width:100%}
+  .logo{font-size:clamp(34px,10vw,48px);margin-bottom:20px}
+  .menu-btns{width:min(100%,380px);gap:10px}
+  .mbtn{font-size:17px;padding:13px 18px}
+  .theme-toggle{margin-top:12px}
+  .menu>.widgets{gap:10px}
+  .menu>.widgets .widget{height:auto;min-height:132px;padding:15px}
+  .w-big{font-size:21px}
+  .w-clock .w-big{font-size:28px}
+}
